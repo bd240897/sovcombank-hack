@@ -1,2 +1,6 @@
+/.idea/
+/venv/
 /venv_app_cnn/
 /api/core/migrations/
+/api/db.sqlite3
+/frontend/node_modules/
