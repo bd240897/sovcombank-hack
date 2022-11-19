@@ -10,6 +10,7 @@ from .models import Data
 from .serializers import DataSerialiser
 from django.conf import settings
 
+
 class DataDetailView(generics.GenericAPIView):
     """Отправка файлов"""
 
@@ -48,30 +49,84 @@ class ProfileView(generics.GenericAPIView):
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        example_profile = {
+        example = {
             "first_name": "Дмитрий",
             "second_name": "Дмитрий",
             "last_name": "Дмитрий",
-            "avatar": "",
+            "avatar": "https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-69.jpg",
             'active': True
         }
 
-        return Response(example_profile, status=status.HTTP_200_OK)
+        return Response(example, status=status.HTTP_200_OK)
+
 
 class WalletView(generics.GenericAPIView):
-    """Кошелек"""
+    """Данные по кошельку"""
 
     permission_classes = [permissions.AllowAny]
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        example_profile = {
-            "first_name": "Дмитрий",
-            "second_name": "Дмитрий",
-            "last_name": "Дмитрий",
-            "avatar": "",
+        id = request.GET.get('id')
+
+        print(request.GET)
+
+        example = {
+            "owner": "Дмитрий",  # 1
+            "currency": "USD",  #
+            "value": 10000,
             'active': True
         }
 
-        return Response(example_profile, status=status.HTTP_200_OK)
+        return Response(example, status=status.HTTP_200_OK)
+
+
+class WalletListView(generics.GenericAPIView):
+    """Список кошельков"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        example = {"list": [
+            {
+                "owner": "Дмитрий",  # 1
+                "currency": "USD",  #
+                "value": 10000,
+                'active': True
+            },
+            {
+                "owner": "Дмитрий",  # 1
+                "currency": "EUR",  #
+                "value": 100,
+                'active': True
+            }]
+        }
+
+        return Response(example, status=status.HTTP_200_OK)
+
+
+class TransferCoinView(generics.GenericAPIView):
+    """Перевод денег"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        from_account = request.DATA.get('from_account')  # id
+        to_account = request.DATA.get('to_account')  # id
+        value = request.DATA.get('value')
+        currency = request.DATA.get('id')  # id
+
+        print(request.DATA)
+
+        example = {
+            "from_account": 1,  # id
+            "to_account": 2,  # id
+            "value": 50,
+        }
+
+        return Response(example, status=status.HTTP_200_OK)
