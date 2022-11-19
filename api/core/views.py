@@ -102,7 +102,7 @@ class WalletListView(generics.GenericAPIView):
             },
             {
                 "id": 2,
-                "name": "Игорь",
+                "name": "Зарплата",
                 "currency": "EUR",  #
                 "value": 100,
             }]
@@ -140,7 +140,7 @@ class TransferHistoryView(generics.GenericAPIView):
 
     permission_classes = [permissions.AllowAny]
 
-    def post(self, request):
+    def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
         id = request.POST.get('id')  # id
@@ -151,10 +151,30 @@ class TransferHistoryView(generics.GenericAPIView):
             "date": "10-10-10:21:21",
             "from_account_id": 1,  # id
             "to_account_id": 2,  # id
-            "from_account_name": "Зарплата",  # id
-            "to_account_name": "Кошка-жена",  # id
+            "from_account_name": "Зарплата",
+            "to_account_name": "Кошка-жена",
             "value": 50,
         }
+
+        return Response(example, status=status.HTTP_200_OK)
+
+
+# TODO мб не будет использоваться
+class GetWalletName(generics.GenericAPIView):
+    """Получить имя счета по его id"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        id = request.query_params.get('id') # id
+
+        example = {
+                "id": 1,
+                "name": "Зарплата",
+            }
+
 
         return Response(example, status=status.HTTP_200_OK)
 
