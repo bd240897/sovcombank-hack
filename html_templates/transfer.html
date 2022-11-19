@@ -12,23 +12,30 @@
 <style>
 
     @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
 
     html, body {
         height: 100%;
     }
 
     .transfer {
-        background: linear-gradient(180deg, #25055A 0%, #57254E 60.73%, #E07D2F 75.83%);
+        background: #26065A;
     }
 
-    .header__text{
+    .christmas-tree {
+        background: url(static/img/christmas-tree.png);
+        background-repeat: no-repeat;
+        background-size: 800px;
+    }
+
+    .header__text {
         font-size: 20px;
         font-family: Rubik, sans-serif;
         font-weight: 600;
         color: white;
     }
 
-    .header__arrow__item{
+    .header__arrow__item {
         /* тексt */
         font-size: 30px;
         font-family: Rubik, sans-serif;
@@ -39,11 +46,73 @@
         border-radius: 20px;
         border: 2px solid #5c636a;
     }
+
+    .choose {
+        /* тексt */
+        font-size: 26px;
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+        color: white;
+    }
+
+    .wallet__element {
+        background-color: #1C0542;
+        border-radius: 20px;
+        border: 3px solid white;
+    }
+
+    .wallet_name, .wallet_value, .wallet_currency {
+        color: white;
+
+    }
+
+    .wallet_name {
+        font-size: 15px;
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+    }
+
+    .wallet_value {
+        font-size: 20px;
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+    }
+
+    .wallet_currency {
+        font-size: 14px;
+        font-family: Rubik, sans-serif;
+        font-weight: 300;
+    }
+
+    .value__item {
+        border-radius: 20px;
+        border: 2px solid #5c636a;
+    }
+
+    .send{
+        margin-top: 80px;
+    }
+
+
+   .send_item {
+        /* фон */
+        background-color: white;
+        border-radius: 15px;
+        border: 2px solid #5c636a;
+
+        /* тексt */
+        font-size: 30px;
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+        color: black;
+    }
+
+
 </style>
 
 
 <section class="transfer h-100">
-    <div class=container>
+    <div class="transfer__container container christmas-tree h-100">
         <div class="header py-3">
             <div class="row">
 
@@ -60,11 +129,46 @@
 
         </div>
 
-        <div>
+        <div class="choose text-center my-2">
+            На какой счет переводить
+        </div>
+
+        <div class="wallet">
+
+            <div class="wallet__element d-flex flex-column align-items-center py-2 mb-4">
+                <div class="wallet_name">
+                    cо счета: для торговли
+                </div>
+                <div class="wallet_value">
+                    2509 $
+                </div>
+                <div class="wallet_currency">
+                    Валюта счёта: USD
+                </div>
+            </div>
+
+            <div class="wallet__element d-flex flex-column align-items-center py-2 mb-4">
+                <div class="wallet_name">
+                    На счет: Бабушка
+                </div>
+                <div class="wallet_value">
+                    2509 $
+                </div>
+                <div class="wallet_currency">
+                    Валюта счёта: USD
+                </div>
+            </div>
 
         </div>
 
+        <div class="value form-group mt-4">
+            <input class="value__item form-control" type="password" id="exampleInputPassword1"
+                   placeholder="Пароль">
+        </div>
 
+        <div class="send mb-4">
+            <button class="send_item btn btn-primary w-100" type="submit">Перевести</button>
+        </div>
     </div>
 
 </section>
