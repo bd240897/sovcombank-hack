@@ -29,8 +29,9 @@ class ProfileView(generics.GenericAPIView):
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
-        current_user = request.user
-        current_profile = Profile.objects.get(user=current_user)
+        # current_user = request.user
+        id = request.GET.get('id')
+        current_profile = Profile.objects.get(user=id)
         # if current_profile.active:
         #     example = {
         #         "first_name": current_profile.first_name,
