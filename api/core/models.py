@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 import requests as requests_lib
+from django.utils.timezone import now
+
 from django.urls import reverse
+
 
 class Data(models.Model):
     """Комментарии"""
@@ -13,14 +16,6 @@ class Data(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-
-from django.db import models
-from django.contrib.auth.models import User
-import requests as requests_lib
-from django.utils.timezone import now
-
-from django.urls import reverse
 
 
 class Profile(models.Model):
