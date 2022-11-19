@@ -130,6 +130,7 @@ class TransferCoinView(generics.GenericAPIView):
             "from_account": 1,  # id
             "to_account": 2,  # id
             "value": 50,
+            "currency": "USD"
         }
 
         return Response(example, status=status.HTTP_200_OK)
@@ -203,3 +204,28 @@ class CourseView(generics.GenericAPIView):
         }
 
         return Response(example, status=status.HTTP_200_OK)
+
+
+class CourseHistoryView(generics.GenericAPIView):
+    """История курса"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        name = request.query_params.get('name') # имя валюты
+
+        # TODO
+        example = {"list": [
+            {
+                "1": "1",
+            },
+            {
+                "2": "2",
+            }]
+        }
+
+        return Response(example, status=status.HTTP_200_OK)
+
+
