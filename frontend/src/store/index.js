@@ -3,6 +3,7 @@ import login from "./modules/login/";
 import chat from "./modules/chat/";
 import profile from "./modules/profile/";
 import transfer from "./modules/transfer/";
+import history from "./modules/history/";
 
 export default createStore({
   state() {
@@ -15,6 +16,7 @@ export default createStore({
       WALLETS_LIST_URL: "/api/v1/wallet/list/",
       WallET_URL: "api/v1/wallet/",
       MAKE_TRANSFER_URL: "api/v1/transfer/",
+      HISTORY_URL: "api/v1/transfer/history/",
 
       CHAT_HISTORY_URL: "/chat/history",
       CHAT_SEND_URL: "/message/send",
@@ -34,6 +36,7 @@ export default createStore({
     login,
     chat,
     profile,
-    transfer
+    transfer,
+    history
   }
 })

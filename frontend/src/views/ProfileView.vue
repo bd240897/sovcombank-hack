@@ -57,7 +57,11 @@
         <div class="open-wallet d-flex justify-content-center mb-3">
           <button class="button_item btn btn-primary py-3 p" type="submit">Создать счет</button>
         </div>
-        '
+
+        <div class="open-wallet d-flex justify-content-center mb-3">
+          <button v-on:click="goToHistory" class="button_item btn btn-primary py-3 p" type="submit">goToHistory</button>
+        </div>
+
       </div>
     </div>
   </section>
@@ -82,14 +86,6 @@ export default {
   },
   methods: {
     ...mapActions('profile', ["getProfileInfo", "getWalletsList",]),
-    goToChat() {
-      // перейти в чат
-      this.$router.push({name: 'ChatView'})
-    },
-    goToExperts() {
-      // перейти на страницу экспертов
-      this.$router.push({name: 'ListExpertsView'})
-    },
     getAvatar(url) {
       return this.BASE_URL + url
     },
@@ -97,6 +93,9 @@ export default {
       console.log(id)
       // перейти на страницу экспертов
       this.$router.push({name: 'Transfer', params: { id: id }})
+    },
+    goToHistory() {
+      this.$router.push({name: 'History'})
     },
 
   },

@@ -4,6 +4,7 @@ import Register from '../views/Register.vue'
 // import TestView from "../views/TestView";
 import ProfileView from "@/views/ProfileView";
 import Transfer from "@/views/Transfer";
+import History from "@/views/History";
 // import ChatView from "@/views/ChatView";
 // import ListExpertsView from "@/views/ListExpertsView";
 
@@ -28,6 +29,12 @@ const routes = [
         name: 'Transfer',
         component: Transfer
     },
+        {
+        path: '/history',
+        name: 'History',
+        component: History
+    },
+
 
     //     {
     //   path: '/experts',

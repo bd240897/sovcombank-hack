@@ -106,7 +106,11 @@ export default {
         "value": this.value,
       }
       this.makeTransfer({data: data_msg})
-    }
+      this.goToHistory()
+    },
+    goToHistory() {
+      this.$router.push({name: 'History'})
+    },
   },
   created() {
     this.getWalletInfo({id: this.$route.params.id})

@@ -76,11 +76,18 @@ class WalletListSerialiser(serializers.ModelSerializer):
 class TransferSerialiser(serializers.ModelSerializer):
     """Загруженные данные"""
 
+    from_account_currency = serializers.SerializerMethodField()
+    to_account_currency = serializers.SerializerMethodField()
+
     class Meta:
         model = Transfer
-        fields = ('from_account', 'to_account', "value", 'owner')
+        fields = ('from_account', 'to_account', "value", 'owner', "date", "from_account_currency", "to_account_currency")
 
+    def get_from_account_currency(self, obj):
+        return obj.from_account.currency.name
 
+    def get_to_account_currency(self, obj):
+        return obj.to_account.currency.name
 
 
 class FullTransferSerialiser(TransferSerialiser):
