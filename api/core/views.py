@@ -121,19 +121,21 @@ class TransferCoinView(generics.GenericAPIView):
             print(serializer.validated_data.get('from_account').id)
             print(Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value)
             if Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value >= serializer.validated_data.get('value'):
-                if Wallet.objects.get(id=serializer.validated_data.get('from_account').id).currency == Wallet.objects.get(id=serializer.validated_data.get('to_account').id).currency:
-                    Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value -= serializer.validated_data.get('value')
-                    Wallet.objects.get(id=serializer.validated_data.get('to_account').id).value += serializer.validated_data.get('value')
+                wallet_from = Wallet.objects.get(id=serializer.validated_data.get('from_account').id)
+                wallet_to = Wallet.objects.get(id=serializer.validated_data.get('to_account').id)
+                if wallet_from.currency == wallet_to.currency:
+                    wallet_from.value -= serializer.validated_data.get('value')
+                    wallet_from.value += serializer.validated_data.get('value')
 
                 else:
-                    result = convert_currency(Wallet.objects.get(id=serializer.validated_data.get('from_account').id).currency.code,
+                    result = convert_currency(wallet_from.currency.code,
                                               serializer.validated_data.get('value'),
-                                              Wallet.objects.get(id=serializer.validated_data.get('to_account').id).currency.code)
-                    Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value -= serializer.validated_data.get('value')
-                    Wallet.objects.get(id=serializer.validated_data.get('to_account').id).value += result
+                                              wallet_to.currency.code)
+                    wallet_from.value -= serializer.validated_data.get('value')
+                    wallet_to.value += result
 
-                Wallet.objects.get(id=serializer.validated_data.get('from_account').id).save()
-                Wallet.objects.get(id=serializer.validated_data.get('to_account').id).save()
+                wallet_from.save()
+                wallet_to.save()
                 serializer.save()
                 return Response(serializer.data)
         return Response(serializer.errors, status=400)
