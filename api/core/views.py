@@ -12,6 +12,8 @@ from .serializers import DataSerialiser, ProfileSerialiser, Currency, CurrencyCo
     TransferSerialiser, FullTransferSerialiser
 from django.conf import settings
 from django.db.models import Q
+from .currency import get_currency, convert_currency
+import json
 
 
 class DataListView(generics.ListAPIView):
@@ -45,7 +47,7 @@ class ProfileView(generics.GenericAPIView):
         #         'active': False
         #     }
         # return Response(example, status=status.HTTP_200_OK)
-        serializer = WalletSerialiser(current_profile)
+        serializer = ProfileSerialiser(current_profile)
         return Response(serializer.data)
 
 
@@ -88,10 +90,10 @@ class WalletListView(generics.GenericAPIView):
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        # id = request.GET.get('id')
-        current_user = request.user
-        current_profile = Profile.objects.get(user=current_user)
-        wallet = Wallet.objects.filter(owner=current_profile)
+        id = request.GET.get('id')
+        # current_user = request.user
+        # current_profile = Profile.objects.get(user_id=id)
+        wallet = Wallet.objects.filter(owner__in=id)
         serializer = WalletSerialiser(wallet, many=True)
         return Response(serializer.data)
 
@@ -116,8 +118,24 @@ class TransferCoinView(generics.GenericAPIView):
 
         # print(request.POST)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            print(serializer.validated_data.get('from_account').id)
+            print(Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value)
+            if Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value >= serializer.validated_data.get('value'):
+                if Wallet.objects.get(id=serializer.validated_data.get('from_account').id).currency == Wallet.objects.get(id=serializer.validated_data.get('to_account').id).currency:
+                    Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value -= serializer.validated_data.get('value')
+                    Wallet.objects.get(id=serializer.validated_data.get('to_account').id).value += serializer.validated_data.get('value')
+
+                else:
+                    result = convert_currency(Wallet.objects.get(id=serializer.validated_data.get('from_account').id).currency.code,
+                                              serializer.validated_data.get('value'),
+                                              Wallet.objects.get(id=serializer.validated_data.get('to_account').id).currency.code)
+                    Wallet.objects.get(id=serializer.validated_data.get('from_account').id).value -= serializer.validated_data.get('value')
+                    Wallet.objects.get(id=serializer.validated_data.get('to_account').id).value += result
+
+                Wallet.objects.get(id=serializer.validated_data.get('from_account').id).save()
+                Wallet.objects.get(id=serializer.validated_data.get('to_account').id).save()
+                serializer.save()
+                return Response(serializer.data)
         return Response(serializer.errors, status=400)
         # example = {
         #     "from_account": 1,  # id
@@ -137,9 +155,7 @@ class TransferHistoryView(generics.GenericAPIView):
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        id = request.POST.get('id')  # id
-
-        print(request.POST)
+        id = request.GET.get('id') # id
 
         transfers = Transfer.objects.filter(Q(from_account_id=id) | Q(to_account_id=id))
         serializer = TransferSerialiser(transfers, many=True)
@@ -167,29 +183,19 @@ class GetWalletName(generics.GenericAPIView):
 
 
 class CourseView(generics.GenericAPIView):
-    """Список кошельков"""
 
     permission_classes = [permissions.AllowAny]
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        name = request.query_params.get('name')  # имя валюты
-
-        example = {"list": [
-            {
-                "name": "USD",
-                "price": "60",  # в рублях
-                "type": "Продать",
-            },
-            {
-                "name": "USD",
-                "price": "70",  # в рублях
-                "type": "Купить",
-            }]
-        }
-
-        return Response(example, status=status.HTTP_200_OK)
+        name_from = request.query_params.get('name_from')  # имя валюты
+        name_to = request.query_params.get('name_to')  # имя валюты
+        name_from = Currency.objects.get(name=name_from).code
+        name_to = Currency.objects.get(name=name_to).code
+        result = get_currency(name_from, name_to)
+        # print(json.loads(result)['rates'][name_from])
+        return Response(result, status=status.HTTP_200_OK)
 
 
 class CourseHistoryView(generics.GenericAPIView):

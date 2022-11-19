@@ -33,13 +33,14 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return str(', '.join((self.first_name, self.second_name, self.third_name)))
+        return str(', '.join((str(self.first_name), str(self.second_name), str(self.third_name))))
 
 
 class Currency(models.Model):
     name = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
+    code = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = 'Валюта'
@@ -59,7 +60,7 @@ class CurrencyCourse(models.Model):
         verbose_name_plural = 'Курсы валюты'
 
     def __str__(self):
-        return str(', '.join((self.currency.name, str(self.date))))
+        return str(', '.join((str(self.currency.name), str(self.date))))
 
 
 class Wallet(models.Model):
@@ -75,14 +76,14 @@ class Wallet(models.Model):
         verbose_name_plural = 'Кошельки'
 
     def __str__(self):
-        return str((', '.join((str(self.owner), self.name))))
+        return str((', '.join((str(self.owner), str(self.name)))))
 
 
 class Transfer(models.Model):
     from_account = models.ForeignKey(Wallet, on_delete=models.PROTECT, related_name='transfers_from_account')
     to_account = models.ForeignKey(Wallet, on_delete=models.PROTECT, related_name='transfers_to_account')
     value = models.FloatField(blank=True, default=0)
-    currency = models.ForeignKey(Currency, on_delete=models.PROTECT, related_name='transfer_currency')
+    # currency = models.ForeignKey(Currency, on_delete=models.PROTECT, related_name='transfer_currency')
     date = models.DateTimeField(default=now, editable=False)
 
     class Meta:
@@ -90,4 +91,4 @@ class Transfer(models.Model):
         verbose_name_plural = 'Переводы'
 
     def __str__(self):
-        return str(', '.join((self.from_account_id, self.to_account_id, str(self.date))))
+        return str(', '.join((str(self.from_account_id), str(self.to_account_id), str(self.date))))

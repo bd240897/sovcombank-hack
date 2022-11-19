@@ -25,7 +25,7 @@ class ProfileSerialiser(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'first_name', 'second_name', 'last_name', 'avatar', 'active', 'date_creation',)
+        fields = ('id', 'first_name', 'second_name', 'third_name', 'avatar', 'active', 'date_creation',)
 
 
 class CurrencySerialiser(serializers.ModelSerializer):
@@ -76,29 +76,30 @@ class WalletSerialiser(serializers.ModelSerializer):
 
 class TransferSerialiser(serializers.ModelSerializer):
     """Загруженные данные"""
-    from_account_id = serializers.SerializerMethodField()
-    to_account_id = serializers.SerializerMethodField()
+    # from_account_id = serializers.SerializerMethodField()
+    # to_account_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Transfer
-        fields = ('currency', 'value', 'from_account_id', 'to_account_id',)
+        fields = ('value', 'from_account', 'to_account',)
 
-    def get_from_account_id(self, obj):
-        return obj.from_account.id
-
-    def get_to_account_id(self, obj):
-        return obj.to_account.id
+    # def get_from_account_id(self, obj):
+    #     return obj.from_account.id
+    #
+    # def get_to_account_id(self, obj):
+    #     return obj.to_account.id
 
 
 class FullTransferSerialiser(TransferSerialiser):
     from_account_name = serializers.SerializerMethodField()
     to_account_name = serializers.SerializerMethodField()
-    currency = serializers.SerializerMethodField()
+
+    # currency = serializers.SerializerMethodField()
 
     class Meta:
         model = Transfer
-        fields = ('currency', 'value', 'from_account_id', 'to_account_id', 'from_account_name', 'to_account_name',
-                  'currency', 'id', 'date')
+        fields = ('value', 'from_account_id', 'to_account_id', 'from_account_name', 'to_account_name',
+                  'id', 'date')
 
     def get_from_account_name(self, obj):
         return obj.from_account.name
