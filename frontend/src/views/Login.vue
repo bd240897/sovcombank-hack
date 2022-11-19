@@ -1,26 +1,65 @@
 <template>
+<!--  <section class="login h-100">-->
+<!--    <div class="container d-flex flex-column align-items-center justify-content-center h-100">-->
+<!--        <div class="login__header text-center ">-->
+<!--            ОТКРОЙСЯ НОВОМУ-->
+<!--        </div>-->
+
+<!--        <div class="login__form w-100">-->
+<!--            <div class="form__email form-group my-4">-->
+<!--                <input v-model="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="Логин">-->
+<!--            </div>-->
+
+<!--            <div class="form__password form-group my-4">-->
+<!--                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">-->
+<!--            </div>-->
+
+<!--            <div class="login__button">-->
+<!--                <button v-on:click.prevent="getLogin" class="button_item btn btn-primary w-100" type="submit">Войти</button>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--</section>-->
+
   <section class="login h-100">
-    <div class="container d-flex flex-column align-items-center justify-content-center h-100">
-        <div class="login__header text-center ">
-            ОТКРОЙСЯ НОВОМУ
+    <div class="container d-flex flex-column h-100">
+
+        <div class="snowflake h-25 mb-2">
+
         </div>
 
-        <div class="login__form w-100">
-            <div class="form__email form-group my-4">
-                <input v-model="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="Логин">
+        <div class="block">
+            <div class="login__header text-center mx-0 px-0">
+                ПРОСТРАНСТВО ВОЗМОЖНОСТЕЙ
             </div>
 
-            <div class="form__password form-group my-4">
-                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
-            </div>
+            <div class="login__form w-100">
+                <div class="form__email form-group my-4">
+                    <input v-model="username" class="form__password__item form-control" type="text" id="exampleInputEmail1"
+                           aria-describedby="emailHelp" placeholder="Логин">
+                </div>
 
-            <div class="login__button">
-                <button v-on:click.prevent="getLogin" class="button_item btn btn-primary w-100" type="submit">Войти</button>
+                <div class="form__password form-group my-4">
+                    <input v-model="password" class="form__password__item form-control" type="password" id="exampleInputPassword2"
+                           placeholder="Пароль">
+                </div>
+
+                <div class="login__button mb-4">
+                    <button v-on:click.prevent="getLogin" class="button_item btn btn-primary w-100" type="submit">Войти</button>
+                </div>
+
+                <p class="login_text_or text-center">или</p>
+
+                <div class="login__button">
+                    <button v-on:click.prevent="goToRegister" class="button_item btn btn-primary w-100" type="submit">Зарегистрироваться</button>
+                </div>
             </div>
         </div>
+
 
     </div>
-
 </section>
 
 </template>
@@ -34,8 +73,8 @@ export default {
   name: "Login",
   data() {
     return {
-      username: 'test2',
-      password: '1234qwerS+',
+      username: 'amid',
+      password: '1',
     }
   },
   methods: {
@@ -49,6 +88,9 @@ export default {
       this.login({data: data_login})
       // this.getUserInfo({})
     },
+    goToRegister() {
+      this.$router.push({ name: 'Register'})
+    }
   },
   created() {
   },
@@ -56,31 +98,62 @@ export default {
 </script>
 
 <style scoped>
+
+
     @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
 
     html, body {
         height: 100%;
     }
 
-    .login__header {
-        font-family: Oswald, serif;
-        color: white;
-        font-size: 72px;
-        width: 80%;
+    .login {
+        background: linear-gradient(180deg, #25055A 0%, #57254E 60.73%, #E07D2F 75.83%);
     }
 
-    .login {
-        background-color: #3CB5E8;
+    .login__header {
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+        color: white;
+        font-size: 32px;
+    }
+
+    .form__password{
+        padding-bottom: 60px;
+    }
+
+
+    .form__password__item {
+        border-radius: 20px;
+        border: 2px solid #5c636a;
     }
 
     .login__button {
-        margin-top: 80px;
+
     }
 
-    .button_item{
-        background-color: #0275D8;
+    .button_item {
+        /* фон */
+        background-color: white;
+        border-radius: 15px;
+        border: 2px solid #5c636a;
+
+        /* тексt */
         font-size: 32px;
-        font-family: Montserrat, sans-serif;
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+        color: black;
     }
+
+    .snowflake {
+          background: url(../assets/img/group_18.png);
+    }
+    .login_text_or{
+        font-family: Rubik, sans-serif;
+        font-weight: 600;
+        color: white;
+    }
+
 </style>

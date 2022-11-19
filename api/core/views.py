@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 import urllib.parse
 from PIL import Image
 from .models import Data, Profile, Wallet, Transfer
-from .serializers import DataSerialiser, WalletSerialiser, ProfileSerialiser, TransferSerialiser
+from .serializers import DataSerialiser, WalletSerialiser, ProfileSerialiser, TransferSerialiser, WalletListSerialiser
 from django.conf import settings
 
 
@@ -70,7 +70,7 @@ class ProfileView(generics.GenericAPIView):
 class WalletView(generics.GenericAPIView):
     """Данные по кошельку (счет)"""
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
@@ -88,9 +88,11 @@ class WalletView(generics.GenericAPIView):
             "value_in_ruble": 600000,
             'active': True
         }
-
-        return Response(example, status=status.HTTP_200_OK)
-
+        # return Response(example, status=status.HTTP_200_OK)
+        current_user = request.user
+        wallet = Wallet.objects.get(owner=current_user, id=id)
+        serializer = WalletSerialiser(wallet)
+        return Response(serializer.data)
 
 class WalletListView(generics.GenericAPIView):
     """Список кошельков"""
@@ -117,7 +119,7 @@ class WalletListView(generics.GenericAPIView):
 
         current_user = request.user
         wallet = Wallet.objects.filter(owner=current_user)
-        serializer = WalletSerialiser(wallet, many=True)
+        serializer = WalletListSerialiser(wallet, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -139,6 +141,7 @@ class TransferCoinView(generics.GenericAPIView):
 
         # https://stackoverflow.com/questions/33861545/how-can-modify-request-data-in-django-rest-framework
         # добавим пользователя в список request.data - тут он требует добавлять id а не юзер
+
         if isinstance(request.data, QueryDict):  # optional
             request.data._mutable = True
         current_user = request.user

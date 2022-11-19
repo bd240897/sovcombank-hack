@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import login from "./modules/login/";
 import chat from "./modules/chat/";
 import profile from "./modules/profile/";
+import transfer from "./modules/transfer/";
 
 export default createStore({
   state() {
@@ -12,6 +13,8 @@ export default createStore({
       USER_INFO_URL: "/api/v1/auth/users/me/",
       PROFILE_URL: "/api/v1/profile/",
       WALLETS_LIST_URL: "/api/v1/wallet/list/",
+      WallET_URL: "api/v1/wallet/",
+      MAKE_TRANSFER_URL: "api/v1/transfer/",
 
       CHAT_HISTORY_URL: "/chat/history",
       CHAT_SEND_URL: "/message/send",
@@ -30,6 +33,7 @@ export default createStore({
   modules: {
     login,
     chat,
-    profile
+    profile,
+    transfer
   }
 })

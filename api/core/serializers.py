@@ -55,6 +55,18 @@ class WalletSerialiser(serializers.ModelSerializer):
 
     class Meta:
         model = Wallet
+        fields = "__all__"
+
+    def get_currency(self, obj):
+        return obj.currency.name
+
+class WalletListSerialiser(serializers.ModelSerializer):
+    """Загруженные данные"""
+
+    currency = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Wallet
         fields = ('id', 'name', 'currency', 'value')
 
     def get_currency(self, obj):
