@@ -125,7 +125,7 @@ class TransferCoinView(generics.GenericAPIView):
                 wallet_to = Wallet.objects.get(id=serializer.validated_data.get('to_account').id)
                 if wallet_from.currency == wallet_to.currency:
                     wallet_from.value -= serializer.validated_data.get('value')
-                    wallet_from.value += serializer.validated_data.get('value')
+                    wallet_to.value += serializer.validated_data.get('value')
 
                 else:
                     result = convert_currency(wallet_from.currency.code,
