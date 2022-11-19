@@ -1,13 +1,15 @@
 import os.path
+
+from django.http import QueryDict
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import FileUploadParser, JSONParser
 from rest_framework import viewsets, status, generics, pagination, filters, permissions
 from rest_framework.views import APIView
 import urllib.parse
 from PIL import Image
-from .models import Data
-from .serializers import DataSerialiser
+from .models import Data, Profile, Wallet, Transfer
+from .serializers import DataSerialiser, WalletSerialiser, ProfileSerialiser, TransferSerialiser
 from django.conf import settings
 
 
@@ -49,15 +51,20 @@ class ProfileView(generics.GenericAPIView):
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        example = {
-            "first_name": "Дмитрий",
-            "second_name": "Алексеевич",
-            "last_name": "Борисов",
-            "avatar": "https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-69.jpg",
-            'active': True
-        }
+        current_user = request.user
+        current_profile = Profile.objects.get(user=current_user)
+        serializer = ProfileSerialiser(current_profile)
+        print(serializer.data)
 
-        return Response(example, status=status.HTTP_200_OK)
+        # example = {
+        #     "first_name": "Дмитрий",
+        #     "second_name": "Алексеевич",
+        #     "last_name": "Борисов",
+        #     "avatar": "https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-69.jpg",
+        #     'active': True
+        # }
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class WalletView(generics.GenericAPIView):
@@ -88,76 +95,87 @@ class WalletView(generics.GenericAPIView):
 class WalletListView(generics.GenericAPIView):
     """Список кошельков"""
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        example = {"list": [
-            {
-                "id": 1,
-                "name": "Кошка-жена",
-                "currency": "USD",  #
-                "value": 10000,
-            },
-            {
-                "id": 2,
-                "name": "Зарплата",
-                "currency": "EUR",  #
-                "value": 100,
-            }]
-        }
+        # example = {"list": [
+        #     {
+        #         "id": 1,
+        #         "name": "Кошка-жена",
+        #         "currency": "USD",  #
+        #         "value": 10000,
+        #     },
+        #     {
+        #         "id": 2,
+        #         "name": "Зарплата",
+        #         "currency": "EUR",  #
+        #         "value": 100,
+        #     }]
+        # }
 
-        return Response(example, status=status.HTTP_200_OK)
+        current_user = request.user
+        wallet = Wallet.objects.filter(owner=current_user)
+        serializer = WalletSerialiser(wallet, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TransferCoinView(generics.GenericAPIView):
     """Перевод денег"""
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        from_account = request.POST.get('from_account')  # id
-        to_account = request.POST.get('to_account')  # id
-        value = request.POST.get('value')
-        currency = request.POST.get('id')  # id
+        # example = {
+        #     "from_account": 1,  # id
+        #     "to_account": 2,  # id
+        #     "value": 50,
+        #     "currency": "USD"
+        # }
 
-        print(request.POST)
+        # https://stackoverflow.com/questions/33861545/how-can-modify-request-data-in-django-rest-framework
+        # добавим пользователя в список request.data - тут он требует добавлять id а не юзер
+        if isinstance(request.data, QueryDict):  # optional
+            request.data._mutable = True
+        current_user = request.user
+        request.data.update({"owner": current_user.id})
 
-        example = {
-            "from_account": 1,  # id
-            "to_account": 2,  # id
-            "value": 50,
-            "currency": "USD"
-        }
+        serializer = TransferSerialiser(data=request.data)
 
-        return Response(example, status=status.HTTP_200_OK)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 
 class TransferHistoryView(generics.GenericAPIView):
     """Перевод денег"""
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        id = request.POST.get('id')  # id
+        # id = request.POST.get('id')  # id
+        #
+        # example = {
+        #     "date": "10-10-10:21:21",
+        #     "from_account_id": 1,  # id
+        #     "to_account_id": 2,  # id
+        #     "from_account_name": "Зарплата",
+        #     "to_account_name": "Кошка-жена",
+        #     "value": 50,
+        # }
 
-        print(request.POST)
+        current_user = request.user
+        transfers = Transfer.objects.filter(owner=current_user)
+        serializer = TransferSerialiser(transfers, many=True)
 
-        example = {
-            "date": "10-10-10:21:21",
-            "from_account_id": 1,  # id
-            "to_account_id": 2,  # id
-            "from_account_name": "Зарплата",
-            "to_account_name": "Кошка-жена",
-            "value": 50,
-        }
-
-        return Response(example, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # TODO мб не будет использоваться

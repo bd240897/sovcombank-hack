@@ -30,6 +30,9 @@ class Profile(models.Model):
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
 
+    def __str__(self):
+        return str(', '.join((self.first_name, self.second_name, self.third_name)))
+
 
 class Currency(models.Model):
     """Валюта"""
@@ -41,6 +44,9 @@ class Currency(models.Model):
     class Meta:
         verbose_name = 'Валюта'
         verbose_name_plural = 'Валюты'
+
+    def __str__(self):
+        return str(self.name)
 
 
 class CurrencyCourse(models.Model):
@@ -55,6 +61,9 @@ class CurrencyCourse(models.Model):
         verbose_name = 'Курс валюты'
         verbose_name_plural = 'Курсы валюты'
 
+    def __str__(self):
+        return str(', '.join((self.currency.name, str(self.date))))
+
 
 class Wallet(models.Model):
     """Кошелек"""
@@ -64,11 +73,14 @@ class Wallet(models.Model):
     value = models.FloatField(verbose_name="Количество", blank=True, default=0)
     active = models.BooleanField(verbose_name="Статус", default=True)
     date_creation = models.DateTimeField(verbose_name="Дата", default=now, editable=False)
+    name = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = 'Кошелек'
         verbose_name_plural = 'Кошельки'
 
+    def __str__(self):
+        return str((', '.join((str(self.owner), self.name))))
 
 class Transfer(models.Model):
     """История переводов"""
@@ -76,9 +88,14 @@ class Transfer(models.Model):
     from_account = models.ForeignKey(Wallet, verbose_name="От какого кошелька", on_delete=models.PROTECT, related_name='transfers_from_account')
     to_account = models.ForeignKey(Wallet, verbose_name="В какой кошелек", on_delete=models.PROTECT, related_name='transfers_to_account')
     value = models.FloatField(verbose_name="Количество", blank=True, default=0)
-    currency = models.ForeignKey(Currency, verbose_name="Валюта", on_delete=models.PROTECT, related_name='transfer_currency')
+    # currency = models.ForeignKey(Currency, verbose_name="Валюта", on_delete=models.PROTECT, related_name='transfer_currency')
     date = models.DateTimeField(verbose_name="Дата", default=now, editable=False)
+    owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.CASCADE, related_name='transfer_owner')
+
 
     class Meta:
         verbose_name = 'Перевод'
         verbose_name_plural = 'Переводы'
+
+    def __str__(self):
+        return str(', '.join((self.from_account_id, self.to_account_id, str(self.date))))
