@@ -10,7 +10,7 @@ def convert_currency(from_currency, amount ,to_currency): # имена валю�
 
   payload = {}
   headers= {
-    "apikey": "JJNdsqUntjo5Q5yjQNAOR353F7D6rlxJ"
+    "apikey": "<api-key>"
   }
 
   response = requests.request("GET", url, headers=headers, data = payload)
