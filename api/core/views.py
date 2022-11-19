@@ -44,7 +44,7 @@ class DataListView(generics.ListAPIView):
 class ProfileView(generics.GenericAPIView):
     """Профиль"""
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
