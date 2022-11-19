@@ -1,0 +1,27 @@
+body{
+    background-color: #6BA3F6;
+}
+
+/*необходимо для центрации дочерних элементов по середине экрана*/
+html, body {
+    height: 100%;
+}
+
+.create__col{
+    border-radius: 30px;
+}
+
+
+.create_body{
+    border: 1px solid black;
+    border-radius: 20px;
+    /*Верх/низ - право/лево*/
+    padding: 42px 35px;
+    /*сверху - справа - синзу - слева */
+    margin: 40px 122px 82px 122px;
+}
+
+
+
+
+
