@@ -51,8 +51,8 @@ class ProfileView(generics.GenericAPIView):
 
         example = {
             "first_name": "Дмитрий",
-            "second_name": "Дмитрий",
-            "last_name": "Дмитрий",
+            "second_name": "Алексеевич",
+            "last_name": "Борисов",
             "avatar": "https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-69.jpg",
             'active': True
         }
@@ -61,7 +61,7 @@ class ProfileView(generics.GenericAPIView):
 
 
 class WalletView(generics.GenericAPIView):
-    """Данные по кошельку"""
+    """Данные по кошельку (счет)"""
 
     permission_classes = [permissions.AllowAny]
 
@@ -73,9 +73,12 @@ class WalletView(generics.GenericAPIView):
         print(request.GET)
 
         example = {
+            "id": 1,
+            "name": "Кошка-жена",
             "owner": "Дмитрий",  # 1
             "currency": "USD",  #
             "value": 10000,
+            "value_in_ruble": 600000,
             'active': True
         }
 
@@ -92,16 +95,16 @@ class WalletListView(generics.GenericAPIView):
 
         example = {"list": [
             {
-                "owner": "Дмитрий",  # 1
+                "id": 1,
+                "name": "Кошка-жена",
                 "currency": "USD",  #
                 "value": 10000,
-                'active': True
             },
             {
-                "owner": "Дмитрий",  # 1
+                "id": 2,
+                "name": "Игорь",
                 "currency": "EUR",  #
                 "value": 100,
-                'active': True
             }]
         }
 
@@ -116,17 +119,67 @@ class TransferCoinView(generics.GenericAPIView):
     def post(self, request):
         """Отправка ссылки на файл (необработанный)"""
 
-        from_account = request.DATA.get('from_account')  # id
-        to_account = request.DATA.get('to_account')  # id
-        value = request.DATA.get('value')
-        currency = request.DATA.get('id')  # id
+        from_account = request.POST.get('from_account')  # id
+        to_account = request.POST.get('to_account')  # id
+        value = request.POST.get('value')
+        currency = request.POST.get('id')  # id
 
-        print(request.DATA)
+        print(request.POST)
 
         example = {
             "from_account": 1,  # id
             "to_account": 2,  # id
             "value": 50,
+        }
+
+        return Response(example, status=status.HTTP_200_OK)
+
+
+class TransferHistoryView(generics.GenericAPIView):
+    """Перевод денег"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        id = request.POST.get('id')  # id
+
+        print(request.POST)
+
+        example = {
+            "date": "10-10-10:21:21",
+            "from_account_id": 1,  # id
+            "to_account_id": 2,  # id
+            "from_account_name": "Зарплата",  # id
+            "to_account_name": "Кошка-жена",  # id
+            "value": 50,
+        }
+
+        return Response(example, status=status.HTTP_200_OK)
+
+
+class CourseView(generics.GenericAPIView):
+    """Список кошельков"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        name = request.query_params.get('name') # имя валюты
+
+        example = {"list": [
+            {
+                "name": "USD",
+                "price": "60",  # в рублях
+                "type": "Продать",
+            },
+            {
+                "name": "USD",
+                "price": "70",  # в рублях
+                "type": "Купить",
+            }]
         }
 
         return Response(example, status=status.HTTP_200_OK)
