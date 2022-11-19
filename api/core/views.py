@@ -38,3 +38,40 @@ class DataListView(generics.ListAPIView):
     queryset = Data.objects.all()
     serializer_class = DataSerialiser
     permission_classes = [permissions.AllowAny]
+
+
+class ProfileView(generics.GenericAPIView):
+    """Профиль"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        example_profile = {
+            "first_name": "Дмитрий",
+            "second_name": "Дмитрий",
+            "last_name": "Дмитрий",
+            "avatar": "",
+            'active': True
+        }
+
+        return Response(example_profile, status=status.HTTP_200_OK)
+
+class WalletView(generics.GenericAPIView):
+    """Кошелек"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        """Отправка ссылки на файл (необработанный)"""
+
+        example_profile = {
+            "first_name": "Дмитрий",
+            "second_name": "Дмитрий",
+            "last_name": "Дмитрий",
+            "avatar": "",
+            'active': True
+        }
+
+        return Response(example_profile, status=status.HTTP_200_OK)
