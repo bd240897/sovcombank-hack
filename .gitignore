@@ -1,2 +1,3 @@
 /venv_app_cnn/
 /api/core/migrations/
+/api/db.sqlite3
