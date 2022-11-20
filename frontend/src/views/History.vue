@@ -52,9 +52,11 @@
 <script>
 import {mapActions, mapState} from "vuex";
 import moment from 'moment'
+import goToSomewhere from "@/mixins/goToSomewhere";
 
 export default {
   name: "History",
+  mixins: [goToSomewhere],
   data: function () {
     return {
       USD: "USD",
@@ -72,11 +74,7 @@ export default {
     getAvatar(url) {
       return this.BASE_URL + url
     },
-    goToProfile(id) {
-      console.log(id)
-      // перейти на страницу экспертов
-      this.$router.push({name: 'ProfileView'})
-    },
+
     setDataFormat(data) {
       return moment(data).format('MM.DD.YYYY HH:mm')
     }

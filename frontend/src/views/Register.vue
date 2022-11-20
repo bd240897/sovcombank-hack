@@ -40,8 +40,11 @@
 </template>
 
 <script>
+import goToSomewhere from "@/mixins/goToSomewhere";
+
 export default {
-  name: "Register"
+  name: "Register",
+  mixins: [goToSomewhere],
 }
 </script>
 

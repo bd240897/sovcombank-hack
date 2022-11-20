@@ -67,10 +67,11 @@
 <script>
 // import '../assets/css/login.css'
 import {mapActions} from "vuex";
-import CryptoJS from 'crypto-js';
+import goToSomewhere from "@/mixins/goToSomewhere";
 
 export default {
   name: "Login",
+  mixins: [goToSomewhere],
   data() {
     return {
       username: 'amid',
@@ -88,9 +89,7 @@ export default {
       this.login({data: data_login})
       // this.getUserInfo({})
     },
-    goToRegister() {
-      this.$router.push({ name: 'Register'})
-    }
+
   },
   created() {
   },

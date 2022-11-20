@@ -69,9 +69,11 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
+import goToSomewhere from "@/mixins/goToSomewhere";
 
 export default {
   name: "Transfer",
+  mixins: [goToSomewhere],
   data: function () {
     return {
       USD: "USD",
@@ -91,10 +93,7 @@ export default {
   },
   methods: {
     ...mapActions('transfer', ["getWalletInfo", "makeTransfer"]),
-    goToProfile() {
-      // перейти на страницу экспертов
-      this.$router.push({name: 'ProfileView'})
-    },
+
     setWalletTo(id) {
       console.log(id)
       this.wallet_to = id

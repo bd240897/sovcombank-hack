@@ -7,7 +7,7 @@
         <div class="user mb-3">
           <div class="user__name row align-items-center pt-3">
             <div class="name__username col-9">
-              <p class="ms-3">{{profile_info.first_name}}</p>
+              <p class="ms-3">{{ profile_info.first_name }}</p>
             </div>
             <div class="name__img col-3">
               <img class="name__img__item" v-bind:src="getAvatar(profile_info.avatar)">
@@ -32,7 +32,8 @@
 
         <div class="currency container mb-3">
 
-          <div v-for="wallet in wallets_list" v-on:click="goToTransfer(wallet.id)" class="currency__element mb-3 row align-items-center">
+          <div v-for="wallet in wallets_list" v-on:click="goToTransfer(wallet.id)"
+               class="currency__element mb-3 row align-items-center">
 
             <div class="element__icon col-3 p-3">
               <img v-if="wallet.currency===RUB" class="element__icon__item ms-2" src="../assets/img/ruble.png">
@@ -43,10 +44,10 @@
             <div class="element__text col-9">
               <div class="ms-5">
                 <div class="element__text__price">
-                  {{wallet.value}} {{wallet.currency}}
+                  {{ wallet.value }} {{ wallet.currency }}
                 </div>
                 <div class="element__text__name">
-                  {{wallet.name}}
+                  {{ wallet.name }}
                 </div>
               </div>
             </div>
@@ -70,10 +71,12 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
+import goToSomewhere from "@/mixins/goToSomewhere";
 
 export default {
   name: "ProfileView",
-    data: function () {
+  mixins: [goToSomewhere],
+  data: function () {
     return {
       USD: "USD",
       RUB: "RUB",
@@ -89,15 +92,6 @@ export default {
     getAvatar(url) {
       return this.BASE_URL + url
     },
-    goToTransfer(id) {
-      console.log(id)
-      // перейти на страницу экспертов
-      this.$router.push({name: 'Transfer', params: { id: id }})
-    },
-    goToHistory() {
-      this.$router.push({name: 'History'})
-    },
-
   },
   created() {
     this.getProfileInfo({})
