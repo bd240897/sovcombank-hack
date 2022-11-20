@@ -1,9 +1,5 @@
 from django.contrib import admin
-from .models import Data, Profile, Currency, CurrencyCourse, Wallet, Transfer
-
-@admin.register(Data)
-class DataAdmin(admin.ModelAdmin):
-    pass
+from .models import Profile, Currency, CurrencyCourse, Wallet, Transfer
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
