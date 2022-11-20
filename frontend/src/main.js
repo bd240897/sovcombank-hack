@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
 // set base url
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = 'http://45.67.58.152:8000' //'http://127.0.0.1:8000'
 
 // если ошибка авторизации кидает на регистарция
 // https://stackoverflow.com/questions/52096412/vue-js-and-axios-redirect-on-401
