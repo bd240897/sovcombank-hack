@@ -1,6 +1,10 @@
 # Проект на хакатон Sovcombank Team Challenge 2022
 
-Команда: Win+nerы
+Команда: Win+ners
+
+Демо:
+[![Watch the video](https://img.youtube.com/vi/-mV5gwUZbdw/hqdefault.jpg)](https://youtu.be/-mV5gwUZbdw)
+
 
 **Разработка приложения для проведения операций на финансовом рынке**
 
