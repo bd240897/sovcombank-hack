@@ -15,74 +15,62 @@ Backend, реализованный на `Django`, нахоодится в па�
 
 Два главных запроса `create user` и `login`. В них, по логину и паролю формируется токен, который позже используется во всех остальных запросах.
 
-    `create user`
+`create user`
     method: POST
     link: http://127.0.0.1:8000/api/v1/auth/users/
     data-parametrs: username password
 
-
-    `login`
+`login`
     method: POST
     link: http://127.0.0.1:8000/auth/token/login/
     data-parametrs: username password
 
-
-
-    `user list`
+`user list`
     method: GET
     link: http://127.0.0.1:8000/api/v1/auth/users/
     data-parametrs: 
 
-
-    `logout`
+`logout`
     method: POST
     link: http://127.0.0.1:8000/auth/token/logout/
     data-parametrs: 
 
-
-    `user infos`
+`user infos`
     method: GET
     link: http://127.0.0.1:8000/api/v1/auth/users/me/
     data-parametrs: 
 
-
-    `Профиль`
+`Профиль`
     method: GET
     link: http://127.0.0.1:8000/api/v1/profile/
     data-parametrs: 
 
-
-    `Cписок кошельков`
+`Cписок кошельков`
     method: GET
     link: http://127.0.0.1:8000/api/v1/wallet/list/
     data-parametrs: 
 
-
-    `Подробности по кошельку`
+`Подробности по кошельку`
     method: POST
     link: http://127.0.0.1:8000/auth/token/login/
     data-parametrs: 
 
-
-    `Сделать перевод`
+`Сделать перевод`
     method: POST
     link: http://127.0.0.1:8000/api/v1/transfer/
     data-parametrs: Token from_account to_account value currency
 
-
-    `История по переводов`
+`История по переводов`
     method: GET
     link: http://127.0.0.1:8000/api/v1/transfer/history/
     data-parametrs: 
 
-
-    `Текущий курс валюты`
+`Текущий курс валюты`
     method: POST
     link: http://127.0.0.1:8000/api/v1/course/
     data-parametrs: name
 
-
-    `История курса валюты`
+`История курса валюты`
     method: POST
     link: http://127.0.0.1:8000/api/v1/course/history/
     data-parametrs: key
@@ -125,9 +113,9 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 ### 3. Запуск через Docker-compose
 https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
 
-    git clone https://github.com/bd240897/changellenge-hack.git
-    cd changellenge-hack/
-    docker-compose -f docker-compose.dev.yml up --build
+    git clone https://github.com/bd240897/sovcombank-hack
+    cd sovcombank-hack/
+    docker-compose -f docker-compose.yml up --build
 
 ##  Результат
 
