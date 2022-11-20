@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import requests as requests_lib
-from django.utils.timezone import now
-
 from django.urls import reverse
-
+from django.utils.timezone import now
 
 class Data(models.Model):
     """Комментарии"""
