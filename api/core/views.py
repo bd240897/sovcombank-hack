@@ -90,7 +90,7 @@ class WalletListView(generics.GenericAPIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
+from .currency import get_currency, convert_currency
 class TransferCoinView(generics.GenericAPIView):
     """Перевод денег"""
 
@@ -109,6 +109,8 @@ class TransferCoinView(generics.GenericAPIView):
         # https://stackoverflow.com/questions/33861545/how-can-modify-request-data-in-django-rest-framework
         # добавим пользователя в список request.data - тут он требует добавлять id а не юзер
 
+        # TODO подумать нужен ли юзер тут в этой табличке вообще
+        # добавляем владелька к кошельку
         if isinstance(request.data, QueryDict):  # optional
             request.data._mutable = True
         current_user = request.user
@@ -117,7 +119,33 @@ class TransferCoinView(generics.GenericAPIView):
         serializer = TransferSerialiser(data=request.data)
 
         if serializer.is_valid():
+            wallet_from = serializer.validated_data.get('from_account') # class 'core.models.Wallet'
+            wallet_from_value = wallet_from.value
+            wallet_to = serializer.validated_data.get('to_account') # class 'core.models.Wallet'
+            wallet_to_value = wallet_to.value
+            value = serializer.validated_data.get('value')
+
+            # проверка на кол-во денег
+            if wallet_from_value <= value:
+                return Response("Не хватает денег!", status=status.HTTP_400_BAD_REQUEST)
+
+            # если кошельки с одинаковой валютой
+            if wallet_from.currency == wallet_to.currency:
+                wallet_from.value -= value
+                wallet_to.value += value
+            else:
+                converted_value = convert_currency(wallet_from.currency.name,
+                                          value,
+                                          wallet_to.currency.name)
+                wallet_from.value -= value
+                wallet_to.value += converted_value
+
+            # сохраняет счета (сумму на них)
+            wallet_from.save()
+            wallet_to.save()
+            # сохраняет историю
             serializer.save()
+
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
 

@@ -76,7 +76,7 @@ class Transfer(models.Model):
 
     from_account = models.ForeignKey(Wallet, verbose_name="От какого кошелька", on_delete=models.PROTECT, related_name='transfers_from_account')
     to_account = models.ForeignKey(Wallet, verbose_name="В какой кошелек", on_delete=models.PROTECT, related_name='transfers_to_account')
-    value = models.FloatField(verbose_name="Количество", blank=True, default=0)
+    value = models.FloatField(verbose_name="Количество")
     # currency = models.ForeignKey(Currency, verbose_name="Валюта", on_delete=models.PROTECT, related_name='transfer_currency')
     date = models.DateTimeField(verbose_name="Дата", default=now, editable=False)
     owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.CASCADE, related_name='transfer_owner')

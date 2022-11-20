@@ -64,7 +64,7 @@ class TransferSerialiser(serializers.ModelSerializer):
 
     class Meta:
         model = Transfer
-        fields = ('from_account', 'to_account', "value", 'owner', "date", "from_account_currency", "to_account_currency")
+        fields = ('from_account', 'to_account', "value", "date", "from_account_currency", 'owner', "to_account_currency") # ,
 
     def get_from_account_currency(self, obj):
         return obj.from_account.currency.name
