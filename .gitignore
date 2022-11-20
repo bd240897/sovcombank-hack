@@ -2,3 +2,4 @@
 /venv/
 /venv_app_cnn/
 /frontend/node_modules/
+/api/api/__pycache__/
