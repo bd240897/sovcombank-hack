@@ -15,113 +15,77 @@ Backend, реализованный на `Django`, нахоодится в па�
 
 Два главных запроса `create user` и `login`. В них, по логину и паролю формируется токен, который позже используется во всех остальных запросах.
 
-`create user`
-
-method: POST
-
-link: http://127.0.0.1:8000/api/v1/auth/users/
-
-data-parametrs: username password
+    `create user`
+    method: POST
+    link: http://127.0.0.1:8000/api/v1/auth/users/
+    data-parametrs: username password
 
 
-`login`
-
-method: POST
-
-link: http://127.0.0.1:8000/auth/token/login/
-
-data-parametrs: username password
+    `login`
+    method: POST
+    link: http://127.0.0.1:8000/auth/token/login/
+    data-parametrs: username password
 
 
 
-`user list`
-
-method: GET
-
-link: http://127.0.0.1:8000/api/v1/auth/users/
-
-data-parametrs: 
+    `user list`
+    method: GET
+    link: http://127.0.0.1:8000/api/v1/auth/users/
+    data-parametrs: 
 
 
-`logout`
-
-method: POST
-
-link: http://127.0.0.1:8000/auth/token/logout/
-
-data-parametrs: 
+    `logout`
+    method: POST
+    link: http://127.0.0.1:8000/auth/token/logout/
+    data-parametrs: 
 
 
-`user infos`
-
-method: GET
-
-link: http://127.0.0.1:8000/api/v1/auth/users/me/
-
-data-parametrs: 
+    `user infos`
+    method: GET
+    link: http://127.0.0.1:8000/api/v1/auth/users/me/
+    data-parametrs: 
 
 
-`Профиль`
-
-method: GET
-
-link: http://127.0.0.1:8000/api/v1/profile/
-
-data-parametrs: 
+    `Профиль`
+    method: GET
+    link: http://127.0.0.1:8000/api/v1/profile/
+    data-parametrs: 
 
 
-`Cписок кошельков`
-
-method: GET
-
-link: http://127.0.0.1:8000/api/v1/wallet/list/
-
-data-parametrs: 
+    `Cписок кошельков`
+    method: GET
+    link: http://127.0.0.1:8000/api/v1/wallet/list/
+    data-parametrs: 
 
 
-`Подробности по кошельку`
-
-method: POST
-
-link: http://127.0.0.1:8000/auth/token/login/
-
-data-parametrs: 
+    `Подробности по кошельку`
+    method: POST
+    link: http://127.0.0.1:8000/auth/token/login/
+    data-parametrs: 
 
 
-`Сделать перевод`
-
-method: POST
-
-link: http://127.0.0.1:8000/api/v1/transfer/
-
-data-parametrs: Token from_account to_account value currency
+    `Сделать перевод`
+    method: POST
+    link: http://127.0.0.1:8000/api/v1/transfer/
+    data-parametrs: Token from_account to_account value currency
 
 
-`История по переводов`
-
-method: GET
-
-link: http://127.0.0.1:8000/api/v1/transfer/history/
-
-data-parametrs: 
+    `История по переводов`
+    method: GET
+    link: http://127.0.0.1:8000/api/v1/transfer/history/
+    data-parametrs: 
 
 
-`Текущий курс валюты`
-
-method: POST
-
-link: http://127.0.0.1:8000/api/v1/course/
-
-data-parametrs: name
+    `Текущий курс валюты`
+    method: POST
+    link: http://127.0.0.1:8000/api/v1/course/
+    data-parametrs: name
 
 
-`История курса валюты`
-
-method: POST
-
-link: http://127.0.0.1:8000/api/v1/course/history/
-
-data-parametrs: key
+    `История курса валюты`
+    method: POST
+    link: http://127.0.0.1:8000/api/v1/course/history/
+    data-parametrs: key
 
 ### Frontend
 
