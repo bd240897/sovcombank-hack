@@ -9,7 +9,7 @@ from PIL import Image
 from .models import Profile, Currency, CurrencyCourse, Wallet, Transfer
 from .models import Data
 from .serializers import DataSerialiser, ProfileSerialiser, Currency, CurrencyCourse, WalletSerialiser, \
-    TransferSerialiser, FullTransferSerialiser
+    TransferSerialiser, FullTransferSerialiser, CurrencyCourseSerialiser
 from django.conf import settings
 from django.db.models import Q
 from .currency import get_currency, convert_currency
@@ -207,20 +207,23 @@ class CourseHistoryView(generics.GenericAPIView):
 
     def get(self, request):
         """Отправка ссылки на файл (необработанный)"""
-
+        n = int(request.query_params.get('n'))
         name = request.query_params.get('name')  # имя валюты
+        if CurrencyCourse.objects.filter(currency__name=name).count() < n:
+            n = CurrencyCourse.objects.filter(currency__name=name).count()
+        last = CurrencyCourse.objects.filter(currency__name=name).order_by('-id')[:n]
+        serializer = CurrencyCourseSerialiser(last, many=True)
 
-        # TODO
-        example = {"list": [
-            {
-                "1": "1",
-            },
-            {
-                "2": "2",
-            }]
-        }
+        # example = {"list": [
+        #     {
+        #         "1": "1",
+        #     },
+        #     {
+        #         "2": "2",
+        #     }]
+        # }
 
-        return Response(example, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 # class TransferView(generics.GenericAPIView):
 #     """Кошелек"""

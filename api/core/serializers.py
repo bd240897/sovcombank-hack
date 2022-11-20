@@ -43,7 +43,7 @@ class CurrencyCourseSerialiser(serializers.ModelSerializer):
 
     class Meta:
         model = CurrencyCourse
-        fields = ('id', 'first_name', 'course_cb', 'date', 'currency',)
+        fields = ('id', 'course_cb', 'date', 'currency',)
 
     def get_currency(self, obj):
         return obj.currency.name

@@ -11,4 +11,5 @@ urlpatterns = [
     path('transfer/', TransferCoinView.as_view()),
     path('transfer/history/', TransferHistoryView.as_view()),
     path('course/', CourseView.as_view()),
+    path('course/history/', CourseHistoryView.as_view()),
 ]
