@@ -1,0 +1,78 @@
+body{
+    background-color: #6BA3F6;
+}
+
+/*необходимо для центрации дочерних элементов по середине экрана*/
+html, body {
+    height: 100%;
+}
+
+.list__col{
+    border-radius: 30px;
+}
+
+/* Дочерние элементы request_list */
+.list_button{
+    background-color: #419641;
+    border-color: #419641;
+}
+
+/* Один элемент запроса */
+.request{
+    border-radius: 20px;
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+
+.request__text{
+    font-size: 26px;
+}
+
+.request__text__number .request__text__name{
+    color: black;
+}
+
+.request__text__date {
+    color: gray;
+}
+
+.request__text__status{
+    color: #5BD148;
+}
+
+
+/*min - минимальный размер срабатывания */
+/*max - работает от этого размера и ниже */
+
+/* XXL */
+@media (max-width: 1400px) {
+
+}
+/* XL */
+@media (max-width: 1200px) {
+    .request__text{
+        font-size: 20px;
+    }
+}
+/* LG */
+@media (max-width: 992px) {
+    .request__text{
+        font-size: 16px;
+    }
+}
+/* MD */
+@media (max-width: 768px) {
+    .request__text__date {
+        display: none;
+    }
+
+    .request__text__status{
+        display: none;
+    }
+
+}
+/*SM*/
+@media (max-width: 576px) {
+
+}
+

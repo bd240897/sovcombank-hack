@@ -1,0 +1,98 @@
+body{
+    background-color: #6BA3F6;
+}
+
+/*необходимо для центрации дочерних элементов по середине экрана*/
+html, body {
+    height: 100%;
+}
+
+.container_white_bg{
+    border-radius: 30px;
+}
+
+
+.vertical_line{
+    border-right: 4px solid gray;
+}
+
+/* Блок меню */
+.menu__element{
+    border-radius: 20px;
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+
+.menu__element:hover {
+    background-color: #449D44; /* Цвет ссылки при наведении */
+}
+
+/* Блок инфо*/
+.info__header{
+
+}
+
+/* Блок с фотками */
+.block_img__body{
+    border-radius: 20px;
+    border: 1px solid #000000;
+    padding: 10px 80px;
+    background-color: #FFEEEE;
+}
+
+.img_item{
+    max-width: 100%;
+    height: auto;
+    border-radius: 10%;
+}
+
+.block_text__user, .block_text__data{
+    font-weight: bold;
+}
+
+/* Блок с описанием */
+
+.block_text__body{
+    border-radius: 20px;
+    border: 1px solid #000000;
+    padding: 20px 80px;
+    background-color: #E5E8FF;
+}
+
+/* Блок с кнопками */
+
+.block_button__body{
+    border-radius: 20px;
+    border: 1px solid #000000;
+    padding: 20px 80px;
+    background-color: #C8FFCD;
+}
+
+/* Модальное окно с меню */
+
+.menu_screen{
+    display: none;
+}
+
+/* Base styles */
+.menu_screen__container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.menu_screen__body {
+    /*width: 300px;*/
+    /*min-height: 180px;*/
+    background-color: white;
+}
+
+/* Custom styles */
+.menu_screen__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

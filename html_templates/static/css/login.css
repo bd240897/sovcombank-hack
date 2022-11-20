@@ -1,0 +1,12 @@
+body{
+    background-color: #6BA3F6;
+}
+
+/*необходимо для центрации дочерних элементов по середине экрана*/
+html, body {
+    height: 100%;
+}
+
+.login__col{
+    border-radius: 30px;
+}
