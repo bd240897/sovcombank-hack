@@ -1,6 +1,10 @@
 # Проект на хакатон Sovcombank Team Challenge 2022
 Команда: **Win+ners**
 
+## Демо:
+
+[![Watch the video](https://img.youtube.com/vi/-mV5gwUZbdw/hqdefault.jpg)](https://youtu.be/-mV5gwUZbdw)
+
 ## Оглавление
 0. [Команда](#Задача)
 1. [Задача](#Задача)
