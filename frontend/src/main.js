@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import VueMeta from 'vue-meta'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
@@ -23,6 +24,6 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-const app = createApp(App).use(store).use(router).mount('#app')
+const app = createApp(App).use(store).use(router).use(VueMeta).mount('#app')
 
 export default app
