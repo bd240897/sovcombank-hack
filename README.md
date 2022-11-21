@@ -17,10 +17,10 @@
 8. [Тестирование](#Тестирование)
 
 ## Команда
-1. [Дмитрий Борисов](https://t.me/@DmitriiBorisov) - backend/frontend
-2. [Максим Кишик](https://t.me/@kishikmaxim) - backend
+1. [Дмитрий Борисов](https://t.me/DmitriiBorisov) - backend/frontend
+2. [Максим Кишик](https://t.me/kishikmaxim) - backend
 3. [Илья Радомский](https://t.me/Tealdris) - devops
-4. [Аня Мархаева](https://t.me/@@privetobnako) - designer
+4. [Аня Мархаева](https://t.me/privetobnako) - designer
 5. [Мария Шемонаева](https://t.me/MShemonaeva)  - analyst
 
 [:arrow_up:Оглавление](#Оглавление)
