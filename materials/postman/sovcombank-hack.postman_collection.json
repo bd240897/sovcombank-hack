@@ -198,7 +198,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token f7dd48d3a6ce75267a7d17f8f48f60abac8fc0c9",
+								"value": "Token db4cb474351a6d5ae73c661708460e7b20b888bf",
 								"type": "text"
 							}
 						],
@@ -226,7 +226,13 @@
 					"name": "Cписок кошельков",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token db4cb474351a6d5ae73c661708460e7b20b888bf",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/v1/wallet/list/",
 							"protocol": "http",
@@ -292,7 +298,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token f7dd48d3a6ce75267a7d17f8f48f60abac8fc0c9",
+								"value": "Token db4cb474351a6d5ae73c661708460e7b20b888bf",
 								"type": "text"
 							}
 						],
@@ -311,14 +317,8 @@
 								},
 								{
 									"key": "value",
-									"value": "5",
+									"value": "12",
 									"type": "text"
-								},
-								{
-									"key": "currency",
-									"value": "USD",
-									"type": "text",
-									"disabled": true
 								}
 							]
 						},
@@ -349,7 +349,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token f7dd48d3a6ce75267a7d17f8f48f60abac8fc0c9",
+								"value": "Token db4cb474351a6d5ae73c661708460e7b20b888bf",
 								"type": "text"
 							}
 						],
@@ -431,6 +431,47 @@
 								{
 									"key": "name",
 									"value": "USD"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "F8CvWt7D883XszhAKhTAgX4NNi8AwtJ3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.apilayer.com/exchangerates_data/convert?to=USD&from=RUB&amount=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"apilayer",
+								"com"
+							],
+							"path": [
+								"exchangerates_data",
+								"convert"
+							],
+							"query": [
+								{
+									"key": "to",
+									"value": "USD"
+								},
+								{
+									"key": "from",
+									"value": "RUB"
+								},
+								{
+									"key": "amount",
+									"value": "1"
 								}
 							]
 						}
