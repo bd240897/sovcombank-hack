@@ -74,9 +74,10 @@ def convert_currency(from_currency, amount, to_currency):  # имена валю
 
     return result  # курс валюты
 
+# TODO это заглушка
 def convert_currency(from_currency, amount, to_currency):  # имена валют
     """Заглушка"""
 
     temp = dict()
-    temp['result'] = 0.016434
+    temp['result'] = 1
     return temp.get('result')
