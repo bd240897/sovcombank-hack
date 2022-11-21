@@ -4,3 +4,5 @@
 /frontend/node_modules/
 __pycache__/
 *.pyc
+/api/core/migrations/
+/api/db.sqlite3
