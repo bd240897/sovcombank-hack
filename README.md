@@ -66,6 +66,7 @@
 [:arrow_up:Оглавление](#Оглавление)
 
 ## Архитектура
+    python 3.8
     backend - django rest framework
     forntend - vue.js
     database - sqlite3
